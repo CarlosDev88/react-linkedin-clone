@@ -3,10 +3,10 @@
 # Linkedin Clone
 
 This Project is a clone of the graphical interface of LinkedIn and the tools used are :
-*react
-*fire base
-*firebase auth
-*redux
+* react
+* fire base
+* firebase auth
+* redux
 
 in this application you can log in and insert posts 
 
