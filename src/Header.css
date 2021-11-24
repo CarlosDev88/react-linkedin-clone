@@ -15,12 +15,6 @@
   display: flex;
 }
 
-.header_left > img {
-  object-fit: contain;
-  height: 40px;
-  margin-right: 10px;
-}
-
 .header_serach {
   padding: 10px;
   display: flex;
@@ -39,4 +33,17 @@
 
 .header_right {
   display: flex;
+}
+
+.logo-content {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.head-logo {
+  background-color: rgba(5.49%, 46.27%, 65.88%);
+  color: white;
+  border-radius: 6px;
+  font-size: 30px;
+  text-align: center;
 }

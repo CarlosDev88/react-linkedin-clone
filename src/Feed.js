@@ -10,18 +10,22 @@ import "./Feed.css";
 import InputOption from "./InputOption";
 import Post from "./Post";
 import { db } from "./Firebase";
+import { selectUser } from "./features/userSlice";
+import { useSelector } from "react-redux";
+import FlipMove from "react-flip-move";
 
 function Feed() {
+  const user = useSelector(selectUser);
   const [input, setInput] = useState("");
   const [posts, setPosts] = useState([]);
 
   const sendPost = (e) => {
     e.preventDefault();
     db.collection("posts").add({
-      name: "Carlos Rueda",
-      description: "primer post",
+      name: user.displayName,
+      description: user.email,
       message: input,
-      photoUrl: "",
+      photoUrl: user.photoUrl || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -46,7 +50,7 @@ function Feed() {
     <div className="feed">
       <div className="feed_inputContainer">
         <div className="feed_input">
-          <CreateIcon />
+          <CreateIcon onClick={sendPost} />
           <form>
             <input
               value={input}
@@ -72,15 +76,17 @@ function Feed() {
 
       {/* posts */}
 
-      {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
-        <Post
-          key={id}
-          name={name}
-          description={description}
-          message={message}
-          photoUrl={photoUrl}
-        />
-      ))}
+      <FlipMove>
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
+      </FlipMove>
     </div>
   );
 }

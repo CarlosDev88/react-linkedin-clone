@@ -7,19 +7,31 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "./features/userSlice";
+import { auth } from "./Firebase";
 
 function Header() {
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout());
+    auth.signOut();
+  };
+
   return (
     <div className="header">
       <div className="header_left">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0MT5BnOA3gRsuDehd27ml7Y3YiAOLJYF-_3xkW30hqORvVRnLVQLQZ5zVDOf_CVEPo3o&usqp=CAU"
-          alt="Logo"
-        />
+        <div className="logo-content">
+          <h1 className="head-logo">
+            <span>in</span>
+          </h1>
+        </div>
 
         <div className="header_serach">
           <SearchIcon />
-          <input type="text" />
+          <input type="text" placeholder="Search" />
         </div>
       </div>
 
@@ -29,10 +41,7 @@ function Header() {
         <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
         <HeaderOption Icon={ChatIcon} title="Messaging" />
         <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOption
-          avatar="https://image.freepik.com/free-vector/people-happy-face-man-with-glasses-icon_24640-19224.jpg"
-          title="me"
-        />
+        <HeaderOption avatar={true} title="me" onClick={logoutOfApp} />
       </div>
     </div>
   );
